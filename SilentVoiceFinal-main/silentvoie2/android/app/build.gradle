@@ -1,0 +1,45 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.example.silentvoie2"
+    compileSdk = 35  // Set the correct SDK version
+    ndkVersion = "27.0.12077973"  // Specify NDK version as required
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17  // Use Java 17 for Flutter compatibility
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()  // Use Java 17 for Kotlin as well
+    }
+
+    defaultConfig {
+        applicationId = "com.example.silentvoie2"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")  // Add signing config for release build
+        }
+    }
+}
+dependencies {
+    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:2.9.0'
+}
+
+flutter {
+    source = "../.."  // Ensure this is the correct path to your Flutter SDK
+}
